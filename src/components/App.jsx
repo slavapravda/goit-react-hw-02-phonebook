@@ -1,6 +1,8 @@
 import { Component } from 'react';
 // import { nanoid } from 'nanoid';
 import Form from './Phonebook/Form';
+import Filter from './Phonebook/Filter';
+import ContactList from './Phonebook/ContactList';
 
 export class App extends Component {
   state = {
@@ -14,24 +16,42 @@ export class App extends Component {
   };
 
   formSubmitHandler = data => {
-    this.setState(prevState => ({
-      contacts: [data, ...prevState.contacts]
-    }))
+    // const {contacts} = this.state
 
+    this.setState(prevState => ({
+      contacts: [data, ...prevState.contacts],
+    }));
+  };
+
+  deleteContact = contactId => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== contactId),
+    }));
+  };
+
+  filterChange = event => {
+    const { value } = event.currentTarget;
+    this.setState({
+      filter: value,
+    });
+  };
+
+  filterState = () => {
+    const { contacts, filter } = this.state;
+    return contacts.filter(el =>
+      el.name.toLowerCase().includes(filter.toLowerCase())
+    );
   };
 
   render() {
+      const contacts = this.filterState()
     return (
       <div>
         <h1>Phonebook</h1>
         <Form onSubmit={this.formSubmitHandler} />
         <h2>Contacts</h2>
-        <label>Find contacts by name
-          <input type="text" name='filter' placeholder='...'/>
-        </label>
-        <ul>
-          {this.state.contacts.map(({id, name, number}) => <li key={id}>{name} : {number}</li>)}
-        </ul>
+        <Filter onChange={this.filterChange}/>
+        <ContactList contacts={contacts} deleteContact={this.deleteContact}/>
       </div>
     );
   }
