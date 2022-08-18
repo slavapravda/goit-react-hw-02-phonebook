@@ -1,4 +1,4 @@
-import PropTypes, { arrayOf } from 'prop-types';
+import PropTypes from 'prop-types';
 import s from './contact-list.module.css';
 
 const ContactList = ({ items, removeContact }) => {
