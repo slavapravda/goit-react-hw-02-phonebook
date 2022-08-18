@@ -1,0 +1,24 @@
+.contact__list{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+
+}
+.contact__item:not(:last-child){
+    margin-bottom: 10px;
+}
+
+.contact__btn{
+margin-left: 8px;
+padding: 5px 10px;
+font-weight: bold;
+border-radius: 5px;
+border: none;
+background-color: #fff;
+color: red;
+cursor: pointer;
+}
+.contact__btn:hover{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
